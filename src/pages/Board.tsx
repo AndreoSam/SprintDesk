@@ -1,12 +1,13 @@
 import {
   DndContext,
+  KeyboardSensor,
   PointerSensor,
   closestCorners,
   useSensor,
   useSensors,
   type DragEndEvent,
 } from "@dnd-kit/core";
-
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import BoardColumn from "../components/board/BoardColumn";
 import { useBoardTasks } from "../hooks/useBoardTasks";
 import { useBoardStore } from "../stores/boardStore";
@@ -62,6 +63,10 @@ function Board() {
       activationConstraint: {
         distance: 6,
       },
+    }),
+
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
 

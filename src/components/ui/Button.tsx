@@ -24,7 +24,7 @@ function Button({
 
   return (
     <button
-      className={`rounded-lg px-4 py-2 font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${
+      className={`rounded-lg px-4 py-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-white dark:focus:ring-offset-gray-900 ${
         variants[variant]
       } ${fullWidth ? "w-full" : ""} ${className}`}
       {...props}

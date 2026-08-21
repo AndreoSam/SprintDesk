@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 import type { Task } from "../../types/task";
 import type { User } from "../../types/user";
-
+import { memo } from "react";
 interface TaskCardProps {
   task: Task;
   assignee?: User;
@@ -102,5 +102,5 @@ function TaskCard({ task, assignee, onClick }: TaskCardProps) {
     </div>
   );
 }
-
-export default TaskCard;
+export default memo(TaskCard);
+// export default TaskCard;

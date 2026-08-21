@@ -19,7 +19,7 @@ function Input({ label, error, id, className = "", ...props }: InputProps) {
 
       <input
         id={id}
-        className={`w-full rounded-lg border px-3 py-2 outline-none transition ${
+        className={`w-full rounded-lg border px-3 py-2 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:focus:ring-white dark:focus:ring-offset-gray-900 ${
           error ? "border-red-500" : "border-gray-300 focus:border-black"
         } ${className}`}
         {...props}
