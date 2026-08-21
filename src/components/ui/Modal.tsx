@@ -30,16 +30,18 @@ function Modal({ open, title, children, onClose }: ModalProps) {
 
   return (
     <>
+      {/* Backdrop */}
       <div className="fixed inset-0 z-40 bg-black/40" onClick={onClose} />
 
+      {/* Modal container */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
-          className="w-full max-w-lg rounded-2xl bg-white shadow-xl"
+          className="w-full max-w-lg rounded-2xl bg-white text-gray-900 shadow-xl dark:bg-gray-900 dark:text-gray-100"
         >
-          <div className="flex items-center justify-between border-b p-5">
+          <div className="flex items-center justify-between border-b border-gray-200 p-5 dark:border-gray-700">
             <h2 id="modal-title" className="text-xl font-bold">
               {title}
             </h2>
@@ -48,7 +50,7 @@ function Modal({ open, title, children, onClose }: ModalProps) {
               type="button"
               onClick={onClose}
               aria-label="Close modal"
-              className="rounded-lg px-3 py-2 text-gray-500 hover:bg-gray-100"
+              className="rounded-lg px-3 py-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
             >
               ✕
             </button>

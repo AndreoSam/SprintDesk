@@ -6,6 +6,7 @@ import App from "./App";
 import AuthInitializer from "./components/auth/AuthInitializer";
 import "./index.css";
 import ToastContainer from "./components/ui/ToastContainer";
+import ThemeInitializer from "./components/theme/ThemeInitializer";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -19,8 +20,10 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthInitializer>
-        <App />
-        <ToastContainer />
+        <ThemeInitializer>
+          <App />
+          <ToastContainer />
+        </ThemeInitializer>
       </AuthInitializer>
     </QueryClientProvider>
   </StrictMode>,

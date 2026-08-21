@@ -20,15 +20,15 @@ function DataTable<T>({
   emptyMessage = "No data available.",
 }: DataTableProps<T>) {
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white">
+    <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
       <table className="w-full min-w-[600px] border-collapse text-left">
-        <thead className="bg-gray-50">
+        <thead className="bg-gray-50 dark:bg-gray-800">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
-                className="border-b px-4 py-3 text-sm font-semibold text-gray-700"
+                className="border-b border-gray-200 px-4 py-3 text-sm font-semibold text-gray-700 dark:border-gray-700 dark:text-gray-200"
               >
                 {column.header}
               </th>
@@ -41,7 +41,7 @@ function DataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-8 text-center text-sm text-gray-500"
+                className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400"
               >
                 {emptyMessage}
               </td>
@@ -50,12 +50,12 @@ function DataTable<T>({
             data.map((item) => (
               <tr
                 key={getRowKey(item)}
-                className="border-b last:border-b-0 hover:bg-gray-50"
+                className="border-b border-gray-200 transition-colors last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/70"
               >
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                    className="px-4 py-3 text-sm text-gray-700"
+                    className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300"
                   >
                     {column.render(item)}
                   </td>

@@ -6,7 +6,6 @@ import {
 } from "@dnd-kit/sortable";
 
 import type { Task, TaskStatus } from "../../types/task";
-
 import type { User } from "../../types/user";
 
 import TaskCard from "./TaskCard";
@@ -37,14 +36,18 @@ function BoardColumn({
   return (
     <div
       ref={setNodeRef}
-      className={`min-w-[290px] flex-1 rounded-xl p-4 transition-colors ${
-        isOver ? "bg-blue-50" : "bg-gray-100"
+      className={`min-w-[290px] flex-1 rounded-xl border p-4 transition-colors ${
+        isOver
+          ? "border-blue-300 bg-blue-50 dark:border-blue-700 dark:bg-blue-950/40"
+          : "border-gray-200 bg-gray-100 dark:border-gray-800 dark:bg-gray-900"
       }`}
     >
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-semibold text-gray-800">{title}</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">
+          {title}
+        </h2>
 
-        <span className="rounded-full bg-white px-2 py-1 text-xs font-semibold text-gray-600">
+        <span className="rounded-full bg-white px-2 py-1 text-xs font-semibold text-gray-600 shadow-sm dark:bg-gray-800 dark:text-gray-300">
           {tasks.length}
         </span>
       </div>
@@ -68,7 +71,7 @@ function BoardColumn({
           })}
 
           {tasks.length === 0 && (
-            <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400">
+            <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400 dark:border-gray-700 dark:text-gray-500">
               Drop tasks here
             </div>
           )}
