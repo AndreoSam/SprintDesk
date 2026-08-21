@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useToast } from "../../hooks/useToast";
 
 import { useNotifications } from "../../hooks/useNotifications";
 
@@ -13,6 +15,30 @@ function NotificationBell() {
     (notification) => !notification.read,
   ).length;
 
+  const { showToast } = useToast();
+
+  const previousIds = useRef<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (previousIds.current.size === 0) {
+      previousIds.current = new Set(notifications.map((item) => item.id));
+
+      return;
+    }
+
+    const newItems = notifications.filter(
+      (item) => !previousIds.current.has(item.id),
+    );
+
+    if (newItems.length > 0 && !open) {
+      showToast(
+        `${newItems.length} new notification${newItems.length > 1 ? "s" : ""}`,
+        "info",
+      );
+    }
+
+    previousIds.current = new Set(notifications.map((item) => item.id));
+  }, [notifications, open, showToast]);
   return (
     <div className="relative">
       <button
