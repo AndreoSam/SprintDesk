@@ -1,31 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { getTasks } from "./services/mockDataService";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Board from "./pages/Board";
+import Analytics from "./pages/Analytics";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
+
+import AppLayout from "./components/layout/AppLayout";
 
 function App() {
-  const {
-    data: tasks,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: getTasks,
-  });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Something went wrong</div>;
-  }
-
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">SprintDesk</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
 
-      <p className="mt-4">Tasks loaded: {tasks?.length}</p>
-    </div>
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+
+            <Route path="/board" element={<Board />} />
+
+            <Route path="/analytics" element={<Analytics />} />
+          </Route>
+        </Route>
+
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
