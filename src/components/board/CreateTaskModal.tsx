@@ -95,7 +95,7 @@ function CreateTaskModal({ open, users, onClose }: CreateTaskModalProps) {
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Enter task title"
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-white dark:focus:ring-white dark:focus:ring-offset-gray-900"
           />
         </div>
 
@@ -113,7 +113,7 @@ function CreateTaskModal({ open, users, onClose }: CreateTaskModalProps) {
             onChange={(event) =>
               setPriority(event.target.value as TaskPriority)
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             <option value="low">Low</option>
 
@@ -135,7 +135,7 @@ function CreateTaskModal({ open, users, onClose }: CreateTaskModalProps) {
             id="new-task-assignee"
             value={assigneeId}
             onChange={(event) => setAssigneeId(Number(event.target.value))}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             {users.map((user) => (
               <option key={user.id} value={user.id}>
@@ -159,22 +159,23 @@ function CreateTaskModal({ open, users, onClose }: CreateTaskModalProps) {
             value={dueDate}
             onChange={(event) => setDueDate(event.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           />
         </div>
 
         <div className="flex justify-end gap-3 pt-2">
           <Button
             type="button"
+            variant="secondary"
             onClick={onClose}
-            className="rounded-lg border border-gray-300 px-4 py-2"
+            className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             Cancel
           </Button>
 
           <Button
             type="submit"
-            className="rounded-lg bg-black px-4 py-2 font-medium text-white"
+            className="rounded-lg bg-black px-4 py-2 font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             Create Task
           </Button>
