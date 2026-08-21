@@ -1,13 +1,20 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
+import { useNavigate } from "react-router-dom";
 
 function AppLayout() {
+  const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `rounded px-3 py-2 ${
       isActive ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
     }`;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -29,7 +36,7 @@ function AppLayout() {
             </NavLink>
 
             <button
-              onClick={logout}
+              onClick={handleLogout}
               className="rounded bg-red-600 px-3 py-2 text-white"
             >
               Logout
