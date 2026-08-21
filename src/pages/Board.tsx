@@ -12,6 +12,7 @@ import { useBoardTasks } from "../hooks/useBoardTasks";
 import { useBoardStore } from "../stores/boardStore";
 
 import type { TaskStatus } from "../types/task";
+import TaskDrawer from "../components/board/TaskDrawer";
 
 const columns: {
   title: string;
@@ -36,9 +37,21 @@ const columns: {
 ];
 
 function Board() {
-  const { tasks, users, isLoading, isError } = useBoardTasks();
+  const { tasks, users, comments, isLoading, isError } = useBoardTasks();
 
   const moveTask = useBoardStore((state) => state.moveTask);
+
+  const selectedTaskId = useBoardStore((state) => state.selectedTaskId);
+
+  const selectTask = useBoardStore((state) => state.selectTask);
+
+  const closeTask = useBoardStore((state) => state.closeTask);
+
+  const selectedTask = tasks.find((task) => task.id === selectedTaskId);
+
+  const selectedTaskComments = comments.filter(
+    (comment) => comment.taskId === selectedTaskId,
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -124,11 +137,20 @@ function Board() {
                 status={column.status}
                 tasks={columnTasks}
                 users={users}
+                onTaskClick={selectTask}
               />
             );
           })}
         </div>
       </DndContext>
+      {selectedTask && (
+        <TaskDrawer
+          task={selectedTask}
+          users={users}
+          comments={selectedTaskComments}
+          onClose={closeTask}
+        />
+      )}
     </div>
   );
 }

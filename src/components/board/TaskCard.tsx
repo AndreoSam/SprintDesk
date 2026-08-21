@@ -8,9 +8,10 @@ import type { User } from "../../types/user";
 interface TaskCardProps {
   task: Task;
   assignee?: User;
+  onClick: () => void;
 }
 
-function TaskCard({ task, assignee }: TaskCardProps) {
+function TaskCard({ task, assignee, onClick }: TaskCardProps) {
   const {
     attributes,
     listeners,
@@ -48,6 +49,7 @@ function TaskCard({ task, assignee }: TaskCardProps) {
       style={style}
       {...attributes}
       {...listeners}
+      onClick={onClick}
       className={`cursor-grab rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md ${
         isDragging ? "opacity-50" : ""
       }`}

@@ -16,9 +16,16 @@ interface BoardColumnProps {
   status: TaskStatus;
   tasks: Task[];
   users: User[];
+  onTaskClick: (taskId: number) => void;
 }
 
-function BoardColumn({ title, status, tasks, users }: BoardColumnProps) {
+function BoardColumn({
+  title,
+  status,
+  tasks,
+  users,
+  onTaskClick,
+}: BoardColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: status,
     data: {
@@ -50,7 +57,14 @@ function BoardColumn({ title, status, tasks, users }: BoardColumnProps) {
           {tasks.map((task) => {
             const assignee = users.find((user) => user.id === task.assigneeId);
 
-            return <TaskCard key={task.id} task={task} assignee={assignee} />;
+            return (
+              <TaskCard
+                key={task.id}
+                task={task}
+                assignee={assignee}
+                onClick={() => onTaskClick(task.id)}
+              />
+            );
           })}
 
           {tasks.length === 0 && (

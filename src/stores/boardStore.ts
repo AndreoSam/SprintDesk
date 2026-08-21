@@ -15,12 +15,32 @@ interface BoardState {
   updateTaskStatus: (taskId: number, status: TaskStatus) => void;
 
   moveTask: (activeId: number, overId: number, newStatus: TaskStatus) => void;
+
+  selectedTaskId: number | null;
+
+  selectTask: (taskId: number) => void;
+
+  closeTask: () => void;
 }
 
 export const useBoardStore = create<BoardState>()(
   persist(
     (set) => ({
       tasks: [],
+
+      selectedTaskId: null,
+
+      selectTask: (taskId) => {
+        set({
+          selectedTaskId: taskId,
+        });
+      },
+
+      closeTask: () => {
+        set({
+          selectedTaskId: null,
+        });
+      },
 
       setTasks: (tasks) => {
         set({ tasks });
@@ -143,6 +163,9 @@ export const useBoardStore = create<BoardState>()(
     }),
     {
       name: "sprintdesk-board",
+      partialize: (state) => ({
+        tasks: state.tasks,
+      }),
     },
   ),
 );
