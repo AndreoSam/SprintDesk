@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-
 import { getTasks, getUsers, getComments } from "../services/mockDataService";
-
 import { useBoardStore } from "../stores/boardStore";
+import { useCommentStore } from "../stores/commentStore";
 
 export const useBoardTasks = () => {
   const tasks = useBoardStore((state) => state.tasks);
@@ -25,16 +24,27 @@ export const useBoardTasks = () => {
     queryFn: getComments,
   });
 
+  const comments = useCommentStore((state) => state.comments);
+
+  const setComments = useCommentStore((state) => state.setComments);
+
   useEffect(() => {
     if (tasksQuery.data && tasks.length === 0) {
       setTasks(tasksQuery.data);
     }
   }, [tasksQuery.data, tasks.length, setTasks]);
 
+  useEffect(() => {
+    if (commentsQuery.data && comments.length === 0) {
+      setComments(commentsQuery.data);
+    }
+  }, [commentsQuery.data, comments.length, setComments]);
+
   return {
     tasks,
     users: usersQuery.data ?? [],
-    comments: commentsQuery.data ?? [],
+    // comments: commentsQuery.data ?? [],
+    comments,
 
     isLoading:
       tasksQuery.isLoading || usersQuery.isLoading || commentsQuery.isLoading,

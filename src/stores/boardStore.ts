@@ -21,6 +21,8 @@ interface BoardState {
   selectTask: (taskId: number) => void;
 
   closeTask: () => void;
+
+  updateTask: (taskId: number, updates: Partial<Task>) => void;
 }
 
 export const useBoardStore = create<BoardState>()(
@@ -159,6 +161,20 @@ export const useBoardStore = create<BoardState>()(
             }),
           };
         });
+      },
+
+      updateTask: (taskId, updates) => {
+        set((state) => ({
+          tasks: state.tasks.map((task) =>
+            task.id === taskId
+              ? {
+                  ...task,
+                  ...updates,
+                  updatedAt: new Date().toISOString(),
+                }
+              : task,
+          ),
+        }));
       },
     }),
     {

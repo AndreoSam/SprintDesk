@@ -145,6 +145,7 @@ function Board() {
       </DndContext>
       {selectedTask && (
         <TaskDrawer
+          key={selectedTask.id}
           task={selectedTask}
           users={users}
           comments={selectedTaskComments}
