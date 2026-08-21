@@ -7,15 +7,18 @@ import {
 
 import type { Task, TaskStatus } from "../../types/task";
 
+import type { User } from "../../types/user";
+
 import TaskCard from "./TaskCard";
 
 interface BoardColumnProps {
   title: string;
   status: TaskStatus;
   tasks: Task[];
+  users: User[];
 }
 
-function BoardColumn({ title, status, tasks }: BoardColumnProps) {
+function BoardColumn({ title, status, tasks, users }: BoardColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: status,
     data: {
@@ -27,7 +30,7 @@ function BoardColumn({ title, status, tasks }: BoardColumnProps) {
   return (
     <div
       ref={setNodeRef}
-      className={`min-w-[280px] flex-1 rounded-xl p-4 ${
+      className={`min-w-[290px] flex-1 rounded-xl p-4 transition-colors ${
         isOver ? "bg-blue-50" : "bg-gray-100"
       }`}
     >
@@ -44,9 +47,11 @@ function BoardColumn({ title, status, tasks }: BoardColumnProps) {
         strategy={verticalListSortingStrategy}
       >
         <div className="min-h-[120px] space-y-3">
-          {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
-          ))}
+          {tasks.map((task) => {
+            const assignee = users.find((user) => user.id === task.assigneeId);
+
+            return <TaskCard key={task.id} task={task} assignee={assignee} />;
+          })}
 
           {tasks.length === 0 && (
             <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400">

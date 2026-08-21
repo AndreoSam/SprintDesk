@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getTasks } from "../services/mockDataService";
+import { getTasks, getUsers } from "../services/mockDataService";
+
 import { useBoardStore } from "../stores/boardStore";
 
 export const useBoardTasks = () => {
@@ -9,19 +10,28 @@ export const useBoardTasks = () => {
 
   const setTasks = useBoardStore((state) => state.setTasks);
 
-  const query = useQuery({
+  const tasksQuery = useQuery({
     queryKey: ["tasks"],
     queryFn: getTasks,
   });
 
+  const usersQuery = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
   useEffect(() => {
-    if (query.data && tasks.length === 0) {
-      setTasks(query.data);
+    if (tasksQuery.data && tasks.length === 0) {
+      setTasks(tasksQuery.data);
     }
-  }, [query.data, tasks.length, setTasks]);
+  }, [tasksQuery.data, tasks.length, setTasks]);
 
   return {
-    ...query,
     tasks,
+    users: usersQuery.data ?? [],
+
+    isLoading: tasksQuery.isLoading || usersQuery.isLoading,
+
+    isError: tasksQuery.isError || usersQuery.isError,
   };
 };

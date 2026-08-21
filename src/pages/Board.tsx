@@ -36,7 +36,7 @@ const columns: {
 ];
 
 function Board() {
-  const { tasks, isLoading, isError } = useBoardTasks();
+  const { tasks, users, isLoading, isError } = useBoardTasks();
 
   const moveTask = useBoardStore((state) => state.moveTask);
 
@@ -123,6 +123,7 @@ function Board() {
                 title={column.title}
                 status={column.status}
                 tasks={columnTasks}
+                users={users}
               />
             );
           })}
