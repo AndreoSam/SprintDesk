@@ -1,3 +1,10 @@
+import { useDroppable } from "@dnd-kit/core";
+
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+
 import type { Task, TaskStatus } from "../../types/task";
 
 import TaskCard from "./TaskCard";
@@ -8,9 +15,22 @@ interface BoardColumnProps {
   tasks: Task[];
 }
 
-function BoardColumn({ title, tasks }: BoardColumnProps) {
+function BoardColumn({ title, status, tasks }: BoardColumnProps) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: status,
+    data: {
+      type: "column",
+      status,
+    },
+  });
+
   return (
-    <div className="min-w-[280px] flex-1 rounded-xl bg-gray-100 p-4">
+    <div
+      ref={setNodeRef}
+      className={`min-w-[280px] flex-1 rounded-xl p-4 ${
+        isOver ? "bg-blue-50" : "bg-gray-100"
+      }`}
+    >
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-semibold text-gray-800">{title}</h2>
 
@@ -19,17 +39,22 @@ function BoardColumn({ title, tasks }: BoardColumnProps) {
         </span>
       </div>
 
-      <div className="space-y-3">
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+      <SortableContext
+        items={tasks.map((task) => task.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="min-h-[120px] space-y-3">
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
 
-        {tasks.length === 0 && (
-          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400">
-            No tasks
-          </div>
-        )}
-      </div>
+          {tasks.length === 0 && (
+            <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400">
+              Drop tasks here
+            </div>
+          )}
+        </div>
+      </SortableContext>
     </div>
   );
 }
