@@ -45,10 +45,10 @@ export const getNotifications = async (): Promise<Notification[]> => {
   return data.notifications;
 };
 
-export const getCommentsByTaskId = async (
-  taskId: number,
-): Promise<Comment[]> => {
-  const data = await getMockData();
+// export const getCommentsByTaskId = async (
+//   taskId: number,
+// ): Promise<Comment[]> => {
+//   const data = await getMockData();
 
-  return data.comments.filter((comment) => comment.taskId === taskId);
-};
+//   return data.comments.filter((comment) => comment.taskId === taskId);
+// };

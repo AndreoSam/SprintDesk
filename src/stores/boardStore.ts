@@ -12,7 +12,7 @@ interface BoardState {
 
   deleteTask: (taskId: number) => void;
 
-  updateTaskStatus: (taskId: number, status: TaskStatus) => void;
+  // updateTaskStatus: (taskId: number, status: TaskStatus) => void;
 
   moveTask: (activeId: number, overId: number, newStatus: TaskStatus) => void;
 
@@ -60,19 +60,19 @@ export const useBoardStore = create<BoardState>()(
         }));
       },
 
-      updateTaskStatus: (taskId, status) => {
-        set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === taskId
-              ? {
-                  ...task,
-                  status,
-                  updatedAt: new Date().toISOString(),
-                }
-              : task,
-          ),
-        }));
-      },
+      // updateTaskStatus: (taskId, status) => {
+      //   set((state) => ({
+      //     tasks: state.tasks.map((task) =>
+      //       task.id === taskId
+      //         ? {
+      //             ...task,
+      //             status,
+      //             updatedAt: new Date().toISOString(),
+      //           }
+      //         : task,
+      //     ),
+      //   }));
+      // },
 
       moveTask: (activeId, overId, newStatus) => {
         set((state) => {

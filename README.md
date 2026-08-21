@@ -477,6 +477,11 @@ Given additional development time, potential improvements would include:
 
 These are intentionally treated as future or bonus improvements rather than expanding the required project scope.
 
+## Documentation
+
+- [Architecture Documentation](./docs/ARCHITECTURE.md)
+- [API Documentation](./docs/API.md)
+
 ## Author
 
 **Andreo Samaddar**
