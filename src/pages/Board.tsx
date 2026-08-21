@@ -13,6 +13,9 @@ import { useBoardStore } from "../stores/boardStore";
 
 import type { TaskStatus } from "../types/task";
 import TaskDrawer from "../components/board/TaskDrawer";
+import { useState } from "react";
+import CreateTaskModal from "../components/board/CreateTaskModal";
+import DeleteTaskModal from "../components/board/DeleteTaskModal";
 
 const columns: {
   title: string;
@@ -37,17 +40,17 @@ const columns: {
 ];
 
 function Board() {
+  const [createOpen, setCreateOpen] = useState(false);
+  const [deleteTaskId, setDeleteTaskId] = useState<number | null>(null);
   const { tasks, users, comments, isLoading, isError } = useBoardTasks();
 
   const moveTask = useBoardStore((state) => state.moveTask);
-
   const selectedTaskId = useBoardStore((state) => state.selectedTaskId);
-
   const selectTask = useBoardStore((state) => state.selectTask);
-
   const closeTask = useBoardStore((state) => state.closeTask);
-
   const selectedTask = tasks.find((task) => task.id === selectedTaskId);
+  const deleteTask = useBoardStore((state) => state.deleteTask);
+  const taskToDelete = tasks.find((task) => task.id === deleteTaskId);
 
   const selectedTaskComments = comments.filter(
     (comment) => comment.taskId === selectedTaskId,
@@ -111,12 +114,22 @@ function Board() {
 
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold">Sprint Board</h1>
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold">Sprint Board</h1>
 
-        <p className="mt-1 text-gray-500">
-          Drag tasks to update sprint progress.
-        </p>
+          <p className="mt-1 text-gray-500">
+            Drag tasks to update sprint progress.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setCreateOpen(true)}
+          className="rounded-lg bg-black px-4 py-2 font-medium text-white"
+        >
+          + Add Task
+        </button>
       </div>
 
       <DndContext
@@ -150,6 +163,26 @@ function Board() {
           users={users}
           comments={selectedTaskComments}
           onClose={closeTask}
+          onDelete={(taskId) => setDeleteTaskId(taskId)}
+        />
+      )}
+      <CreateTaskModal
+        open={createOpen}
+        users={users}
+        onClose={() => setCreateOpen(false)}
+      />
+      {taskToDelete && (
+        <DeleteTaskModal
+          open={deleteTaskId !== null}
+          taskTitle={taskToDelete.title}
+          onCancel={() => setDeleteTaskId(null)}
+          onConfirm={() => {
+            deleteTask(taskToDelete.id);
+
+            setDeleteTaskId(null);
+
+            closeTask();
+          }}
         />
       )}
     </div>

@@ -12,9 +12,16 @@ interface TaskDrawerProps {
   users: User[];
   comments: Comment[];
   onClose: () => void;
+  onDelete: (taskId: number) => void;
 }
 
-function TaskDrawer({ task, users, comments, onClose }: TaskDrawerProps) {
+function TaskDrawer({
+  task,
+  users,
+  comments,
+  onClose,
+  onDelete,
+}: TaskDrawerProps) {
   const updateTask = useBoardStore((state) => state.updateTask);
 
   const addComment = useCommentStore((state) => state.addComment);
@@ -250,6 +257,13 @@ function TaskDrawer({ task, users, comments, onClose }: TaskDrawerProps) {
             className="w-full rounded-lg bg-black px-4 py-3 font-medium text-white hover:bg-gray-800"
           >
             Save Changes
+          </button>
+          <button
+            type="button"
+            onClick={() => onDelete(task.id)}
+            className="w-full rounded-lg border border-red-300 px-4 py-3 font-medium text-red-600 hover:bg-red-50"
+          >
+            Delete Task
           </button>
         </form>
 
