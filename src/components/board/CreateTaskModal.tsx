@@ -6,7 +6,7 @@ import { useBoardStore } from "../../stores/boardStore";
 
 import type { User } from "../../types/user";
 import type { Task, TaskPriority } from "../../types/task";
-
+import Button from "../ui/Button";
 interface CreateTaskModalProps {
   open: boolean;
   users: User[];
@@ -164,20 +164,20 @@ function CreateTaskModal({ open, users, onClose }: CreateTaskModalProps) {
         </div>
 
         <div className="flex justify-end gap-3 pt-2">
-          <button
+          <Button
             type="button"
             onClick={onClose}
             className="rounded-lg border border-gray-300 px-4 py-2"
           >
             Cancel
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="submit"
             className="rounded-lg bg-black px-4 py-2 font-medium text-white"
           >
             Create Task
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

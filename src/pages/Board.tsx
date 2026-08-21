@@ -16,6 +16,7 @@ import TaskDrawer from "../components/board/TaskDrawer";
 import { useState } from "react";
 import CreateTaskModal from "../components/board/CreateTaskModal";
 import DeleteTaskModal from "../components/board/DeleteTaskModal";
+import BoardSkeleton from "../components/board/BoardSkeleton";
 
 const columns: {
   title: string;
@@ -105,7 +106,7 @@ function Board() {
   };
 
   if (isLoading && tasks.length === 0) {
-    return <div className="p-6">Loading board...</div>;
+    return <BoardSkeleton />;
   }
 
   if (isError && tasks.length === 0) {
