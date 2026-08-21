@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
 import { useNavigate } from "react-router-dom";
-
+import NotificationBell from "../notifications/NotificationBell";
 function AppLayout() {
   const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
@@ -34,7 +34,7 @@ function AppLayout() {
             <NavLink to="/analytics" className={linkClass}>
               Analytics
             </NavLink>
-
+            <NotificationBell />
             <button
               onClick={handleLogout}
               className="rounded bg-red-600 px-3 py-2 text-white"

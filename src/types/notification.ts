@@ -1,4 +1,4 @@
-export type NotificationType = "task" | "review";
+export type NotificationType = "task" | "review" | "system";
 
 export interface Notification {
   id: number;
