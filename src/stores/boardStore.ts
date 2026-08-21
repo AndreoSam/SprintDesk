@@ -121,6 +121,10 @@ export const useBoardStore = create<BoardState>()(
           destinationTasks.splice(insertIndex, 0, {
             ...activeTask,
             status: newStatus,
+            completedAt:
+              newStatus === "done"
+                ? (activeTask.completedAt ?? new Date().toISOString())
+                : null,
             updatedAt: new Date().toISOString(),
           });
 
@@ -165,15 +169,25 @@ export const useBoardStore = create<BoardState>()(
 
       updateTask: (taskId, updates) => {
         set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === taskId
-              ? {
-                  ...task,
-                  ...updates,
-                  updatedAt: new Date().toISOString(),
-                }
-              : task,
-          ),
+          tasks: state.tasks.map((task) => {
+            if (task.id !== taskId) {
+              return task;
+            }
+
+            const nextStatus = updates.status ?? task.status;
+
+            return {
+              ...task,
+              ...updates,
+
+              completedAt:
+                nextStatus === "done"
+                  ? (task.completedAt ?? new Date().toISOString())
+                  : null,
+
+              updatedAt: new Date().toISOString(),
+            };
+          }),
         }));
       },
     }),

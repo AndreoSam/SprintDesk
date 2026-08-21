@@ -73,3 +73,7 @@ export const apiClient = async (
     throw new Error("Your session has expired. Please login again.");
   }
 };
+
+export const resetRefreshPromiseForTests = () => {
+  refreshPromise = null;
+};
