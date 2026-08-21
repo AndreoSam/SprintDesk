@@ -20,6 +20,19 @@ function Dashboard() {
     [tasks],
   );
 
+  const taskMetrics = useMemo(() => {
+    const completed = tasks.filter((task) => task.status === "done").length;
+    const active = tasks.filter(
+      (task) => task.status === "in-progress" || task.status === "review",
+    ).length;
+
+    return {
+      total: tasks.length,
+      active,
+      completed,
+    };
+  }, [tasks]);
+
   const columns: DataTableColumn<Task>[] = [
     {
       key: "title",
@@ -56,12 +69,6 @@ function Dashboard() {
     return <div className="p-6">Loading dashboard...</div>;
   }
 
-  const done = tasks.filter((task) => task.status === "done").length;
-
-  const active = tasks.filter(
-    (task) => task.status === "in-progress" || task.status === "review",
-  ).length;
-
   return (
     <div className="p-4 sm:p-6">
       <div>
@@ -73,22 +80,28 @@ function Dashboard() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border bg-white p-5">
-          <p className="text-sm text-gray-500">Total Tasks</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+          <p className="text-sm text-gray-500 dark:text-gray-400">Total Tasks</p>
 
-          <p className="mt-2 text-3xl font-bold">{tasks.length}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+            {taskMetrics.total}
+          </p>
         </div>
 
-        <div className="rounded-xl border bg-white p-5">
-          <p className="text-sm text-gray-500">Active</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+          <p className="text-sm text-gray-500 dark:text-gray-400">Active</p>
 
-          <p className="mt-2 text-3xl font-bold">{active}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+            {taskMetrics.active}
+          </p>
         </div>
 
-        <div className="rounded-xl border bg-white p-5">
-          <p className="text-sm text-gray-500">Completed</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+          <p className="text-sm text-gray-500 dark:text-gray-400">Completed</p>
 
-          <p className="mt-2 text-3xl font-bold">{done}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+            {taskMetrics.completed}
+          </p>
         </div>
       </div>
 

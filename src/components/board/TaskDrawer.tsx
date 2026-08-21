@@ -104,11 +104,13 @@ function TaskDrawer({
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-drawer-title"
-        className="fixed right-0 top-0 z-50 h-full w-full max-w-lg overflow-y-auto bg-white shadow-xl"
+        className="fixed right-0 top-0 z-50 h-full w-full max-w-lg overflow-y-auto bg-white text-gray-900 shadow-xl dark:bg-gray-900 dark:text-gray-100"
       >
-        <div className="sticky top-0 z-10 flex items-start justify-between border-b bg-white p-6">
+        <div className="sticky top-0 z-10 flex items-start justify-between border-b border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
           <div>
-            <p className="text-sm text-gray-500">Task #{task.id}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Task #{task.id}
+            </p>
 
             <h2 id="task-drawer-title" className="mt-1 text-xl font-bold">
               Task Details
@@ -119,7 +121,7 @@ function TaskDrawer({
             type="button"
             onClick={onClose}
             aria-label="Close task details"
-            className="rounded-lg px-3 py-2 text-gray-500 hover:bg-gray-100"
+            className="rounded-lg px-3 py-2 text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             ✕
           </button>
@@ -139,7 +141,7 @@ function TaskDrawer({
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               required
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-white dark:focus:ring-white dark:focus:ring-offset-gray-900"
             />
           </div>
 
@@ -156,7 +158,7 @@ function TaskDrawer({
               value={description}
               onChange={(event) => setDescription(event.target.value)}
               rows={4}
-              className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+              className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-white dark:focus:ring-white dark:focus:ring-offset-gray-900"
             />
           </div>
 
@@ -175,7 +177,7 @@ function TaskDrawer({
                 onChange={(event) =>
                   setStatus(event.target.value as Task["status"])
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2"
+                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
               >
                 <option value="backlog">Backlog</option>
 
@@ -201,7 +203,7 @@ function TaskDrawer({
                 onChange={(event) =>
                   setPriority(event.target.value as Task["priority"])
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2"
+                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
               >
                 <option value="low">Low</option>
 
@@ -224,7 +226,7 @@ function TaskDrawer({
               id="task-assignee"
               value={assigneeId}
               onChange={(event) => setAssigneeId(Number(event.target.value))}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
             >
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
@@ -248,29 +250,35 @@ function TaskDrawer({
               value={dueDate}
               onChange={(event) => setDueDate(event.target.value)}
               required
-              className="w-full rounded-lg border border-gray-300 px-3 py-2"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-white dark:focus:ring-offset-gray-900"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-black px-4 py-3 font-medium text-white hover:bg-gray-800"
+            className="w-full rounded-lg bg-black px-4 py-3 font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 dark:focus:ring-white dark:focus:ring-offset-gray-900"
           >
             Save Changes
           </button>
           <button
             type="button"
             onClick={() => onDelete(task.id)}
-            className="w-full rounded-lg border border-red-300 px-4 py-3 font-medium text-red-600 hover:bg-red-50"
+            className="w-full rounded-lg border border-red-300 px-4 py-3 font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:border-red-400 dark:text-red-400 dark:hover:bg-red-950/40 dark:focus:ring-red-400 dark:focus:ring-offset-gray-900"
           >
             Delete Task
           </button>
         </form>
 
-        <section className="border-t p-6">
-          <h3 className="font-semibold">Comments</h3>
+        <section className="border-t border-gray-200 p-6 dark:border-gray-800">
+          <label
+            htmlFor="task-due-date"
+            className="mb-2 block text-sm font-medium"
+          >
+            Comments
+          </label>
+          {/* <h3 className="font-semibold">Comments</h3> */}
 
-          <div className="mt-4 flex gap-2">
+          <div className="flex gap-2">
             <input
               value={comment}
               onChange={(event) => setComment(event.target.value)}
@@ -282,13 +290,13 @@ function TaskDrawer({
               }}
               placeholder="Write a comment..."
               aria-label="Comment"
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+              className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-white dark:focus:ring-white dark:focus:ring-offset-gray-900"
             />
 
             <button
               type="button"
               onClick={handleAddComment}
-              className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white"
+              className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 dark:focus:ring-white dark:focus:ring-offset-gray-900"
             >
               Add
             </button>
@@ -303,7 +311,10 @@ function TaskDrawer({
               const author = users.find((user) => user.id === item.authorId);
 
               return (
-                <div key={item.id} className="rounded-xl bg-gray-50 p-4">
+                <div
+                  key={item.id}
+                  className="rounded-xl bg-gray-50 p-4 dark:bg-gray-800"
+                >
                   <div className="flex items-center gap-2">
                     {author && (
                       <img
@@ -318,7 +329,7 @@ function TaskDrawer({
                     </span>
                   </div>
 
-                  <p className="mt-2 text-sm leading-6 text-gray-600">
+                  <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">
                     {item.message}
                   </p>
 
